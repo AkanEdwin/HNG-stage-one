@@ -1,16 +1,34 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from datetime import datetime
+from django.http import JsonResponse
 
-
-#Current date and time
-
-
-utc_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
-current_day = datetime.now().strftime('%A')
 
 @api_view(['GET'])
 def getData(request):
-    person = {'slack_name':'akaninyene_edwin', 'current_day':current_day, 'utc_time':utc_time , 'track':'backend', 'github_file_url':'https://github.com/AkanEdwin/stage-one/blob/main/endpoint', 'github_repo_url':'https://github.com/AkanEdwin/stage-one', 'status_code':'200'}
+    # Get the 'name' and 'track' query parameters from the request
+    name = request.GET.get('name')
+    track = request.GET.get('track')
 
-    return Response(person)
+        # Validate the 'name' and 'track' parameters
+    if not name or not track:
+        return JsonResponse({'error': 'Both name and track parameters are required.'}, status=400)
+
+    #Current date and time
+    utc_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    current_day = datetime.now().strftime('%A')
+
+
+    # Prepare the response JSON
+    response_data = {
+        'name': name,
+
+        'current_day': current_day,
+        'utc_time':utc_time ,
+        'track': track,
+        'github_file_url':'https://github.com/AkanEdwin/stage-one/blob/main/endpoint', 
+        'github_repo_url':'https://github.com/AkanEdwin/stage-one', 
+        'status_code':'200'
+        }
+
+    return JsonResponse(response_data)
