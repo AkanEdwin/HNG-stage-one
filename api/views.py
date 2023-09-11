@@ -7,7 +7,7 @@ from django.http import JsonResponse
 @api_view(['GET'])
 def getData(request):
     # Get the 'name' and 'track' query parameters from the request
-    name = request.GET.get('name')
+    name = request.GET.get('slack_name')
     track = request.GET.get('track')
 
         # Validate the 'name' and 'track' parameters
@@ -21,7 +21,7 @@ def getData(request):
 
     # Prepare the response JSON
     response_data = {
-        'name': name,
+        'slack_name': name,
 
         'current_day': current_day,
         'utc_time':utc_time ,
