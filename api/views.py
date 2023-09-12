@@ -2,6 +2,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from datetime import datetime
 from django.http import JsonResponse
+from django.http import HttpResponse
+
+
+def home(request):
+    return HttpResponse('This is the API that receives two parameters')
 
 
 @api_view(['GET'])
